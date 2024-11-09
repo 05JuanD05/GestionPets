@@ -10,7 +10,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'vaccine',
+    loadChildren: () => import('./pages/vaccine/vaccine.module').then( m => m.VaccinePageModule)
   },
+
 ];
 
 @NgModule({
