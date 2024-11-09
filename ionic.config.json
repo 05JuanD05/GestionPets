@@ -1,0 +1,7 @@
+{
+  "name": "GestionPets",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
