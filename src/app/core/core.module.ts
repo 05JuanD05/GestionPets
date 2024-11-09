@@ -10,8 +10,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
   imports: [
     CommonModule,
     AngularFireModule.initializeApp(environment.FireBaseMascota),
-    AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AngularFireAuthModule
   ]
 })
 export class CoreModule { }

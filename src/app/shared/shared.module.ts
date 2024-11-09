@@ -20,7 +20,7 @@ const Components = [
 ];
 
 const Providers = [
-  AuthService
+  AuthService,
 ];
 
 const Controles = [

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-type ButtonType = "text" | "number" | "tel" | "email" | "passwrod" | "date";
+type ButtonType = "text" | "number" | "tel" | "email" | "password" | "date";
 
 @Component({
   selector: 'app-input',
