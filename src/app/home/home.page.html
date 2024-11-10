@@ -6,7 +6,7 @@
     <ion-card-header>
       <ion-card-title>Register Pet</ion-card-title>
     </ion-card-header>
-      <form [formGroup]="petsForm">
+      <form [formGroup]="petsForm" (ngSubmit)="onSubmit()">
         <ion-row>
           <ion-col>
             <ion-input label="Name:" formControlName="name" type="text" required></ion-input>
@@ -14,9 +14,19 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-input label="Breed:" formControlName="breed" type="text" required></ion-input>
+            <ion-select label="Breed:" formControlName="breed" required>
+              <ion-select-option disabled>Dog</ion-select-option>
+              <ion-select-option *ngFor="let breed of filteredBreeds.dogs" [value]="breed.value">
+                {{ breed.label }}
+              </ion-select-option>
+            
+              <ion-select-option disabled>Cat</ion-select-option>
+              <ion-select-option *ngFor="let breed of filteredBreeds.cats" [value]="breed.value">
+                {{ breed.label }}
+              </ion-select-option>
+            </ion-select> 
           </ion-col>
-        </ion-row>
+        </ion-row>        
         <ion-row>
           <ion-col>
             <ion-input label="Age:" formControlName="age" type="number" required></ion-input>
@@ -39,4 +49,19 @@
         </ion-col>
       </ion-row>
     </ion-card>  
+
+
+    <ion-title size="large">Pets List</ion-title>
+    <ion-list>
+      <ion-item *ngFor="let pet of petList; let i = index" class="pet-item">
+        <ion-label>
+          <h2>Name: {{ pet.name }}</h2>
+          <h2>Breed: {{ pet.breed }}</h2>
+          <h2>Age: {{ pet.age }}</h2>
+          <h2>Birthdate: {{ pet.birthdate }}</h2>
+        </ion-label>
+        <ion-button (click)="onEditPet(i)">Edit</ion-button>  
+        <ion-button color="danger" (click)="onDeletePet(i)">Delete</ion-button>  
+      </ion-item>
+    </ion-list>
 </ion-content>

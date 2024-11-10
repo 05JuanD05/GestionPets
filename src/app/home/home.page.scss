@@ -10,11 +10,11 @@ ion-card {
   border: 3px solid #10ac84;
   border-radius: 15px;
   padding: 20px;
-  background-color: rgba(150, 150, 150, 0.8);
+  background-color: rgba(201, 201, 201, 0.8);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 90%; /* Ajuste inicial para pantallas pequeñas */
-  max-width: 500px; /* Ancho máximo para pantallas más grandes */
-  margin: 20px auto; /* Centramos la tarjeta y agregamos margen */
+  width: 90%; 
+  max-width: 500px; 
+  margin: 20px auto; 
 }
 
 ion-card-header ion-card-title {
@@ -25,23 +25,48 @@ ion-card-header ion-card-title {
   margin-bottom: 10px;
 }
 
+ion-item {
+  --background: #3163cf; 
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
 ion-input {
   --color: #000000;
   border-radius: 8px;
   padding: 10px;
 }
 
+
+ion-title {
+  --color: #000000;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+
+ion-select {
+  --color: #000000; 
+  --placeholder-color: #555555; 
+  color: #000000; 
+}
+
+ion-select-option {
+  --ion-color-base: #000000; 
+}
+
 ion-button {
   --background: #10ac84;
   --background-hover: #0e8a6b;
-  border-radius: 10px;
-  width: 100%; /* Botón ancho completo en dispositivos móviles */
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
-ion-button[color="danger"] {
-  --background: #e63946;
-  --background-hover: #d62828;
-  color: #ffffff;
+
+.pet-item ion-label h2,
+.pet-item ion-label p {
+  color: rgb(255, 255, 255); 
 }
 
 /* Media query para pantallas más grandes (escritorio) */
@@ -58,4 +83,5 @@ ion-button[color="danger"] {
   ion-input {
     padding: 15px;
   }
+  
 }
