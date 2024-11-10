@@ -50,7 +50,7 @@
       </ion-row>
     </ion-card>  
 
-
+    <ion-card>
     <ion-title size="large">Pets List</ion-title>
     <ion-list>
       <ion-item *ngFor="let pet of petList; let i = index" class="pet-item">
@@ -64,4 +64,5 @@
         <ion-button color="danger" (click)="onDeletePet(i)">Delete</ion-button>  
       </ion-item>
     </ion-list>
+    </ion-card>
 </ion-content>

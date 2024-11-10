@@ -5,6 +5,9 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class PetSService {
+
+  private pets: any[] = []; // Almacenamiento temporal de mascotas
+
   private dogBreeds = [
     { label: 'Labrador', value: 'Labrador'},
     { label: 'Rottweiler', value: 'rottweiler'},
@@ -55,5 +58,28 @@ export class PetSService {
         dogs: this.dogBreeds,
         cats: this.catBreeds
       });
+    }
+
+    addPet(pet: any): Observable<any> {
+      this.pets.push(pet); // Agregar la mascota al arreglo
+      return of(pet); // Retornar la mascota agregada como Observable
+    }
+  
+    getPets(): Observable<any[]> {
+      return of(this.pets); // Retornar el arreglo de mascotas como Observable
+    }
+
+    updatePet(index: number, updatedPet: any): Observable<any> {
+      if (index >= 0 && index < this.pets.length) {
+        this.pets[index] = updatedPet;
+      }
+      return of(updatedPet);
+    }
+  
+    deletePet(index: number): Observable<any> {
+      if (index >= 0 && index < this.pets.length) {
+        this.pets.splice(index, 1);
+      }
+      return of(null);
     }
 }
