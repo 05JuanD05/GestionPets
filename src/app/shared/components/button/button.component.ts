@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-type colorButton = "success" | "danger";
+type colorButton = "success" | "danger" | "primary";
 type buttonType = "button" | "submit";
 
 @Component({
