@@ -1,20 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card-header>
+    <ion-card-title>¡WELCOME TO THE PET MANAGEMENT APP!</ion-card-title>
+  </ion-card-header>
+  <ion-card class="ion-padding">
+    <ion-card-header>
+      <ion-card-title>Register Pet</ion-card-title>
+    </ion-card-header>
+      <form [formGroup]="petsForm">
+        <ion-row>
+          <ion-col>
+            <ion-input label="Name:" formControlName="name" type="text" required></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-input label="Breed:" formControlName="breed" type="text" required></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-input label="Age:" formControlName="age" type="number" required></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-input label="Birthdate:" formControlName="birthdate" type="date" required></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button color="danger" type="submit" [disabled]="petsForm.invalid">Register</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+      <ion-row>
+        <ion-col>
+          <ion-button routerLink="/vaccine" expand="block">Register Vaccine</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>  
 </ion-content>
