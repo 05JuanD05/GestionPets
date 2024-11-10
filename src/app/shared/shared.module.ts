@@ -6,6 +6,7 @@ import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { AuthService } from './services/authService/auth.service';
 import { LoadingService } from './services/loadingService/loading.service';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 const Modules = [
   CommonModule,
@@ -17,6 +18,7 @@ const Modules = [
 const Components = [
   InputComponent,
   ButtonComponent,
+  AvatarComponent
 ];
 
 const Providers = [
