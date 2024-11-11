@@ -10,7 +10,6 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-rememberMe: boolean = false;
 public email!: FormControl;
 public password!: FormControl;
 public loginform!: FormGroup;

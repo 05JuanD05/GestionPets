@@ -1,10 +1,40 @@
-.login-content {
+
+ion-card {
+    background-image: url('https://img.freepik.com/vector-premium/perro-gato-diseno-logotipo-cuidado-mascotas-concepto-elemento-simbolo-vector-ilustracion_690981-739.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.984);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  ion-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.514); /* Capa semitransparente */
+    backdrop-filter: blur(1px) opacity(0.2); /* Aplica el desenfoque */
+    z-index: 1;
+  }
+  
+  ion-card > * {
+    position: relative;
+    z-index: 2;
+  }
+  
+ion-content {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
   }
   
+
   .background-gradient {
     background: linear-gradient(to bottom, #576b83, #8c97a1);
     width: 100%;
@@ -14,13 +44,7 @@
     align-items: center;
   }
   
-  .login-card {
-    width: 320px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.984);
-  }
-  
-  .login-header {
+  ion-card-header {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,36 +57,9 @@
     border-radius: 10px;
   }
   
-  .remember-row {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-  }
-  
-//   .login-button {
-//     background-color: #d81b60;
-//     color: #fff;
-//     border-radius: 5px;
-//     font-weight: bold;
-//   }
-  
   .or-login-with p {
     color: #666;
     font-size: 0.9em;
-  }
-  
-  .social-button {
-    width: 100%;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .facebook {
-    background-color: #3b5998;
-  }
-  
-  .google {
-    background-color: #db4437;
   }
   
   .signup-row p {
