@@ -1,0 +1,78 @@
+ion-card {
+    background-image: url('https://img.freepik.com/vector-premium/perro-gato-diseno-logotipo-cuidado-mascotas-concepto-elemento-simbolo-vector-ilustracion_690981-739.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    border: 2px solid #f07b07e6;
+  }
+  
+  ion-card:hover {
+    box-shadow: 0 12px 24px rgba(255, 165, 0, 0.7);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  div {
+    background: linear-gradient(to bottom, #576b83, #8c97a1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  ion-row {
+    margin-bottom: 12px;
+  }
+  
+  ion-col {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  app-avatar {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  app-button {
+    --background: #3880ff;
+    --border-radius: 8px;
+    --padding: 12px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  app-button:hover {
+    transform: scale(1.02);
+  }
+  
+  app-button:active {
+    transform: scale(0.98);
+  }
+  
+  
+  @media (min-width: 768px) {
+    ion-card {
+      max-width: 600px;
+      margin: auto;
+    }
+  
+    ion-col {
+      max-width: 500px;
+    }
+  }
+  
+  
+  

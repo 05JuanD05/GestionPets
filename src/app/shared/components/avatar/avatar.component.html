@@ -1,0 +1,12 @@
+<ion-avatar (click)="file.click()">
+  <img [src]="control.value || image" alt="AvatarFoto" />
+</ion-avatar>
+<br>
+<input 
+  #file
+  type="file" 
+  [accept]="mimeType" 
+  [multiple]="false" 
+  (change)="uploadFoto($event)" 
+  [disabled]="onlyView"
+  style="display: none;">

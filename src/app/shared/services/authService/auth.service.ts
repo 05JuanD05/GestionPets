@@ -5,11 +5,11 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class AuthService {
 
-  constructor(private readonly jdAuth: AngularFireAuth) { }
+  constructor(private readonly petAuth: AngularFireAuth) { }
 
-  public registrar(email: string, password: string){
+  public registrarUser(email: string, password: string){
     return new Promise((resolve, reject) => {
-      this.jdAuth.createUserWithEmailAndPassword(email, password)
+      this.petAuth.createUserWithEmailAndPassword(email, password)
       .then((res) => resolve(res))
       .catch((err) => reject(err));
     });
@@ -17,7 +17,7 @@ export class AuthService {
 
   public login(email: string, password: string){
     return new Promise((resolve, reject) => {
-      this.jdAuth.signInWithEmailAndPassword(email, password)
+      this.petAuth.signInWithEmailAndPassword(email, password)
       .then((res) => resolve(res))
       .catch((err) => reject(err));
     })
