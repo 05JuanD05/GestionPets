@@ -34,16 +34,16 @@ export class SupabaseService {
   }
 
   //Funcion para la URL
-  async getFotoUrl(fileName: string): Promise<string | null> {
-    const { data, error } = await this.supabase.storage
+  async getFotoUrl(filePath: string): Promise<string | null> {
+    const { data } = await this.supabase.storage
     .from('photosUsers')
-    .createSignedUrl(`fotos/${fileName}`, 60);
+    .getPublicUrl(filePath);
 
-    if (error) {
-      console.error('Error al obtener la URL de la foto: ', error.message);
+    if (!data) {
+      console.error('Error al obtener la URL de la foto: ');
       return null;
     } else {
-      return data.signedUrl;
+      return data.publicUrl;
     }
   }
   

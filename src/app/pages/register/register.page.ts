@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/shared/services/authService/auth.service';
 import { LoadingService } from 'src/app/shared/services/loadingService/loading.service';
+import { SupabaseService } from 'src/app/shared/services/storageS/supabase.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,7 @@ export class RegisterPage implements OnInit {
   public passwordType: 'text' | 'password' = 'password';
 
 
-  constructor(private readonly authSv: AuthService, private readonly loadingSv: LoadingService, private readonly navControl: NavController, private readonly route: ActivatedRoute, private readonly FireStore: AngularFirestore) { 
+  constructor(private readonly authSv: AuthService, private readonly loadingSv: LoadingService, private readonly navControl: NavController, private readonly route: ActivatedRoute, private readonly FireStore: AngularFirestore, private readonly supabaseS: SupabaseService) { 
     this.initForm();
   }
 
@@ -34,6 +35,7 @@ export class RegisterPage implements OnInit {
 
   public async doRegister() {
     try{
+      await this.loadingSv.show();
       console.log(this.registerForm.value);
       const { email, password, image } = this.registerForm.value;
       const userCreden: any = await this.authSv.registrarUser(email, password);
@@ -45,7 +47,7 @@ export class RegisterPage implements OnInit {
 
       let imageUrl = "";
       if(image) {
-        
+        imageUrl = await this.supabaseS.uploadFoto(image);
       }else {
         console.warn('Imagen no seleccionada');
       }
@@ -54,7 +56,7 @@ export class RegisterPage implements OnInit {
 
       this.navControl.navigateForward("/login");
     }catch (error) {
-      // await this.loadingSv.dismiss();
+      await this.loadingSv.dismiss();
 
       if(error instanceof Error) {
         if (error.message.includes('Email already in use')) {
@@ -86,7 +88,7 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  private async registerUsuarios(userId: string, email: string, imageFile: string,) {
+  private async registerUsuarios(userId: string, email: string, imageFile: string) {
     try {
       await this.FireStore.collection('users').doc(userId).set({
         email,

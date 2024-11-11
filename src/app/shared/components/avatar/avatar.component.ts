@@ -39,7 +39,7 @@ export class AvatarComponent implements OnInit{
     if (!file) return;
   
     try {
-      // await this.loadService.show();
+      await this.loadService.show();
       
       this.previewImage(file);
   
@@ -51,10 +51,10 @@ export class AvatarComponent implements OnInit{
         this.control.setValue(url);
       }
       
-      // await this.loadService.dismiss();
+      await this.loadService.dismiss();
     } catch (error) {
       console.error('Error al subir la imagen:', error);
-      // await this.loadService.dismiss();
+      await this.loadService.dismiss();
     }
   }
 
