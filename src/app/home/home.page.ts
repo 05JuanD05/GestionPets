@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PetSService } from '../shared/services/petService/pet-s.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +10,14 @@ import { PetSService } from '../shared/services/petService/pet-s.service';
 })
 export class HomePage implements OnInit {
   petsForm: FormGroup;
-  userId!: string;
+  userId: string | undefined;
   filteredBreeds: { dogs: { label: string, value: string }[], cats: { label: string, value: string }[] } = { dogs: [], cats: [] };
   petList: any[] = [];
-  editIndex: number | null = null; 
+  editId: string | null = null;
 
 
   constructor(
-  private formBuilder: FormBuilder, private petService: PetSService 
-  ){
+  private formBuilder: FormBuilder, private petService: PetSService, private afAuth: AngularFireAuth){
 
   this.petsForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -29,26 +29,35 @@ export class HomePage implements OnInit {
 
 
   ngOnInit(): void {
-    this.petService.getBreeds().subscribe(breeds => {
+    // Obtener el ID del usuario logueado
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.userId = user.uid;
+        this.loadPets(); // Cargar mascotas cuando se tenga el userId
+      }
+    });
+
+    this.petService.getBreeds().subscribe((breeds) => {
       this.filteredBreeds = breeds;
     });
-    this.loadPets();
   }
 
   loadPets() {
-    this.petService.getPets().subscribe(pets => {
-      this.petList = pets;
-    });
+    if (this.userId) {
+      this.petService.getPets(this.userId).subscribe((pets) => {
+        this.petList = pets;
+      });
+    }
   }
 
   onSubmit() {
-    if (this.petsForm.valid) {
+    if (this.petsForm.valid && this.userId) { // Verifica que userId esté disponible
       const petData = { ...this.petsForm.value, userId: this.userId };
-  
-      if (this.editIndex !== null) {
-        this.petService.updatePet(this.editIndex, petData).subscribe(() => {
+
+      if (this.editId !== null) {
+        this.petService.updatePet(this.editId, petData).subscribe(() => {
           this.loadPets(); // Recargar la lista
-          this.editIndex = null; // Salir del modo de edición
+          this.editId = null; // Salir del modo de edición
         });
       } else {
         this.petService.addPet(petData).subscribe(() => {
@@ -59,19 +68,21 @@ export class HomePage implements OnInit {
     }
   }
 
-  onEditPet(index: number) {
-    const pet = this.petList[index];
-    this.petsForm.setValue({
-      name: pet.name,
-      breed: pet.breed,
-      age: pet.age,
-      birthdate: pet.birthdate
-    });
-    this.editIndex = index;
+  onEditPet(petId: string) {
+    const pet = this.petList.find((p) => p.id === petId);
+    if (pet) {
+      this.petsForm.setValue({
+        name: pet.name,
+        breed: pet.breed,
+        age: pet.age,
+        birthdate: pet.birthdate,
+      });
+      this.editId = petId;
+    }
   }
 
-  onDeletePet(index: number) {
-    this.petService.deletePet(index).subscribe(() => {
+  onDeletePet(petId: string) {
+    this.petService.deletePet(petId).subscribe(() => {
       this.loadPets();
     });
   }

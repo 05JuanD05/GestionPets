@@ -29,7 +29,7 @@
         </ion-row>        
         <ion-row>
           <ion-col>
-            <ion-input label="Age:" formControlName="age" type="number" required></ion-input>
+            <ion-input label="Age:" formControlName="age" placeholder="Especificar si es year/month/week" type="text" required></ion-input>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -60,8 +60,8 @@
           <h2>Age: {{ pet.age }}</h2>
           <h2>Birthdate: {{ pet.birthdate }}</h2>
         </ion-label>
-        <ion-button (click)="onEditPet(i)">Edit</ion-button>  
-        <ion-button color="danger" (click)="onDeletePet(i)">Delete</ion-button>  
+        <ion-button (click)="onEditPet(pet)">Edit</ion-button>  
+        <ion-button color="danger" (click)="onDeletePet(pet)">Delete</ion-button>  
       </ion-item>
     </ion-list>
     </ion-card>

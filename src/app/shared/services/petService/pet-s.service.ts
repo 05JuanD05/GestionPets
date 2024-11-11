@@ -1,12 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { map } from 'rxjs/operators';
+
+
+export interface PetData {
+  name: string;
+  age: number;
+  breed: string;
+  // Otros campos que tenga tu documento de mascota
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PetSService {
 
-  private pets: any[] = []; // Almacenamiento temporal de mascotas
+  private petsCollection: AngularFirestoreCollection<any>;
 
   private dogBreeds = [
     { label: 'Labrador', value: 'Labrador'},
@@ -53,6 +64,11 @@ export class PetSService {
     ];
 
 
+    constructor(private firestore: AngularFirestore) {
+      this.petsCollection = this.firestore.collection('Pets');
+    }
+
+
     getBreeds(): Observable<{ dogs: { label: string, value: string }[], cats: { label: string, value: string }[] }> {
       return of({
         dogs: this.dogBreeds,
@@ -61,25 +77,40 @@ export class PetSService {
     }
 
     addPet(pet: any): Observable<any> {
-      this.pets.push(pet); // Agregar la mascota al arreglo
-      return of(pet); // Retornar la mascota agregada como Observable
+      return new Observable(observer => {
+        this.petsCollection.add(pet)
+          .then(() => observer.next(pet))
+          .catch(error => observer.error(error));
+      });
     }
   
-    getPets(): Observable<any[]> {
-      return of(this.pets); // Retornar el arreglo de mascotas como Observable
+    getPets(userId: string): Observable<any[]> {
+      return this.firestore.collection('Pets', ref => ref.where('userId', '==', userId))
+        .snapshotChanges()
+        .pipe(
+          map(actions =>
+            actions.map(a => {
+              const data = a.payload.doc.data() as PetData;
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            })
+          )
+        );
     }
 
-    updatePet(index: number, updatedPet: any): Observable<any> {
-      if (index >= 0 && index < this.pets.length) {
-        this.pets[index] = updatedPet;
-      }
-      return of(updatedPet);
+    updatePet(id: string, updatedPet: any): Observable<any> {
+      return new Observable(observer => {
+        this.petsCollection.doc(id).update(updatedPet)
+          .then(() => observer.next(updatedPet))
+          .catch(error => observer.error(error));
+      });
     }
   
-    deletePet(index: number): Observable<any> {
-      if (index >= 0 && index < this.pets.length) {
-        this.pets.splice(index, 1);
-      }
-      return of(null);
+    deletePet(id: string): Observable<any> {
+      return new Observable(observer => {
+        this.petsCollection.doc(id).delete()
+          .then(() => observer.next())
+          .catch(error => observer.error(error));
+      });
     }
 }
