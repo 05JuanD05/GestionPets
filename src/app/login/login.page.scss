@@ -1,0 +1,81 @@
+.login-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .background-gradient {
+    background: linear-gradient(to bottom, #576b83, #8c97a1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-card {
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.984);
+  }
+  
+  .login-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+  }
+  
+  .login-logo {
+    width: 80px;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .remember-row {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+//   .login-button {
+//     background-color: #d81b60;
+//     color: #fff;
+//     border-radius: 5px;
+//     font-weight: bold;
+//   }
+  
+  .or-login-with p {
+    color: #666;
+    font-size: 0.9em;
+  }
+  
+  .social-button {
+    width: 100%;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .facebook {
+    background-color: #3b5998;
+  }
+  
+  .google {
+    background-color: #db4437;
+  }
+  
+  .signup-row p {
+    font-size: 0.85em;
+    color: #666;
+  }
+  
+  .signup-row a {
+    color: #d81b60;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .signup-row a:hover {
+    text-decoration: underline;
+  }
+  
