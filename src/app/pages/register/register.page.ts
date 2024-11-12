@@ -6,6 +6,7 @@ import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/shared/services/authService/auth.service';
 import { LoadingService } from 'src/app/shared/services/loadingService/loading.service';
 import { SupabaseService } from 'src/app/shared/services/storageS/supabase.service';
+import { ToastService } from 'src/app/shared/services/toastS/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +27,7 @@ export class RegisterPage implements OnInit {
   public passwordType: 'text' | 'password' = 'password';
 
 
-  constructor(private readonly authSv: AuthService, private readonly loadingSv: LoadingService, private readonly navControl: NavController, private readonly route: ActivatedRoute, private readonly FireStore: AngularFirestore, private readonly supabaseS: SupabaseService) { 
+  constructor(private readonly authSv: AuthService, private readonly loadingSv: LoadingService, private readonly toastMsj: ToastService, private readonly navControl: NavController, private readonly route: ActivatedRoute, private readonly FireStore: AngularFirestore, private readonly supabaseS: SupabaseService) { 
     this.initForm();
   }
 
@@ -53,16 +54,17 @@ export class RegisterPage implements OnInit {
       }
 
       await this.registerUsuarios(userId, email, imageUrl);
-
+      this.toastMsj.mostrarToast('El usuario se registró con exito')
+      await this.loadingSv.dismiss();
       this.navControl.navigateForward("/login");
     }catch (error) {
       await this.loadingSv.dismiss();
 
       if(error instanceof Error) {
         if (error.message.includes('Email already in use')) {
-          // this.toastMsj.mensajeToast('El correo esta en uso.' , 'danger');
+           this.toastMsj.mostrarToast('El correo esta en uso.' , );
         } else {
-          // this.toastMsj.mensajeToast('Error al Registrarse: ' + error.message, 'danger');
+           this.toastMsj.mostrarToast('Error al Registrarse, el correo está en uso ' ,);
         }
         console.error('Error al registrar: ', error);
       }
