@@ -8,56 +8,71 @@ ion-card {
     margin: auto;
     border: 2px solid #f07b07e6;
   }
-
-ion-label {
-    color: #000000;
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);  // Sombra para mejor legibilidad
-}
-
-ion-card-content {
+  
+  ion-card:hover {
+    box-shadow: 0 12px 24px rgba(255, 165, 0, 0.7);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  ion-card-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-}
+  }
 
-ion-row {
+  div {
+    background: linear-gradient(to bottom, #576b83, #8c97a1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  ion-row {
     margin-bottom: 12px;
-}
-
-ion-col {
+  }
+  
+  ion-col {
     display: flex;
     justify-content: flex-start;
-}
+  }
+  
+  app-avatar {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
 
-app-input {
-    --background: transparent;
-    --placeholder-color: #080808;  // Placeholder más claro para mejor contraste
-    --border-color: #f5a623;  // Un color cálido y contrastante para los bordes
-    color: #000000;  // Color blanco para el texto
-    width: 100%;
-    text-align: left;
-}
-
-app-button {
+  app-button {
     --background: #3880ff;
     --border-radius: 8px;
     --padding: 12px;
     width: 100%;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-@media (min-width: 768px) {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  app-button:hover {
+    transform: scale(1.02);
+  }
+  
+  app-button:active {
+    transform: scale(0.98);
+  }
+  
+  
+  @media (min-width: 768px) {
     ion-card {
       max-width: 600px;
       margin: auto;
     }
-
+  
     ion-col {
       max-width: 500px;
     }
-}
+  }
+  
+  
+  
