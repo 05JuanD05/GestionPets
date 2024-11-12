@@ -8,10 +8,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireStorageModule, CoreModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireStorageModule, CoreModule, HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
