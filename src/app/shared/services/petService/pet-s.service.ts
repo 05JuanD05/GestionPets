@@ -5,10 +5,10 @@ import { map } from 'rxjs/operators';
 
 
 export interface PetData {
+  image?: string;
   name: string;
   age: number;
   breed: string;
-  // Otros campos que tenga tu documento de mascota
 }
 
 

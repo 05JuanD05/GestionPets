@@ -9,6 +9,11 @@
       <form [formGroup]="petsForm" (ngSubmit)="onSubmit()">
         <ion-row>
           <ion-col>
+            <app-avatar [control]="petsForm.controls['image']"></app-avatar>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
             <ion-input label="Name:" formControlName="name" type="text" required></ion-input>
           </ion-col>
         </ion-row>
@@ -53,7 +58,10 @@
     <ion-card>
     <ion-title size="large">Pets List</ion-title>
     <ion-list>
-      <ion-item *ngFor="let pet of petList; let i = index" class="pet-item">
+      <ion-item *ngFor="let pet of petList" class="pet-item">
+        <ion-avatar slot="start">
+          <app-avatar [control]="getImageControl(pet.image)" [onlyView]="true"></app-avatar>
+        </ion-avatar>
         <ion-label>
           <h2>Name: {{ pet.name }}</h2>
           <h2>Breed: {{ pet.breed }}</h2>
