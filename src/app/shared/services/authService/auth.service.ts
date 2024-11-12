@@ -22,4 +22,16 @@ export class AuthService {
       .catch((err) => reject(err));
     })
   }
+
+  public isAuth(){
+    return new Promise((resolve, reject) => {
+      this.petAuth.currentUser.then((res) => {
+        if(res?.uid){
+          resolve(true);
+        }else {
+          resolve(false);
+        }
+      })
+    })
+  }
 }

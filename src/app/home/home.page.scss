@@ -1,0 +1,90 @@
+ion-content {
+  --background: url('https://img.freepik.com/vector-premium/perro-gato-diseno-logotipo-cuidado-mascotas-concepto-elemento-simbolo-vector-ilustracion_690981-739.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-card {
+  border: 3px solid #10ac84;
+  border-radius: 15px;
+  padding: 20px;
+  background-color: rgba(201, 201, 201, 0.8);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%; 
+  max-width: 500px; 
+  margin: 20px auto; 
+}
+
+ion-card-header ion-card-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 22px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+ion-item {
+  --background: #3163cf; 
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+
+ion-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 22px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+
+ion-input {
+  --color: #000000;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+
+ion-select {
+  --color: #000000; 
+  --placeholder-color: #555555; 
+  color: #000000; 
+}
+
+ion-select-option {
+  --ion-color-base: #000000; 
+}
+
+ion-button {
+  --background: #10ac84;
+  --background-hover: #0e8a6b;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+.pet-item ion-label h2,
+.pet-item ion-label p {
+  color: rgb(255, 255, 255); 
+}
+
+/* Media query para pantallas más grandes (escritorio) */
+@media (min-width: 768px) {
+  ion-card {
+    width: 60%; /* Ajuste de ancho para pantallas medianas y grandes */
+    max-width: 600px; /* Ancho máximo para una mejor visualización en escritorio */
+  }
+
+  ion-card-header ion-card-title {
+    font-size: 26px; /* Tamaño de fuente mayor para pantallas grandes */
+  }
+
+  ion-input {
+    padding: 15px;
+  }
+  
+}
