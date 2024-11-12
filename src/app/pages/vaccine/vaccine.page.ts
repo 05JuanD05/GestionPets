@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-vaccine',
   templateUrl: './vaccine.page.html',
   styleUrls: ['./vaccine.page.scss'],
+  providers: [DatePipe]
 })
 export class VaccinePage implements OnInit {
-
   public name!: FormControl;
   public date!: FormControl;
   public certificado!: FormControl;
   public agregarForm!: FormGroup;
-  public vacunas: any[] = []; // Lista para almacenar las vacunas
-  public editIndex: number | null = null; // Índice de la vacuna que se va a editar
+  public vacunas: any[] = [];
+  public editIndex: number | null = null;
 
-  constructor() { }
+  constructor(private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.name = new FormControl('');
@@ -29,26 +30,25 @@ export class VaccinePage implements OnInit {
   }
 
   agregarVacuna() {
+    const formattedDate = this.datePipe.transform(this.date.value, 'dd/MM/yyyy'); // Asegura que la fecha esté formateada
     const nuevaVacuna = {
       name: this.name.value,
-      date: this.date.value,
+      date: formattedDate,
       certificado: this.certificado.value,
     };
 
     if (this.editIndex !== null) {
-      // Si hay un índice de edición, actualiza la vacuna existente
       this.vacunas[this.editIndex] = nuevaVacuna;
-      this.editIndex = null; // Restablece el índice después de actualizar
+      this.editIndex = null;
     } else {
-      // Si no hay índice de edición, agrega una nueva vacuna
       this.vacunas.push(nuevaVacuna);
     }
 
-    this.agregarForm.reset(); // Resetea el formulario después de agregar o editar
+    this.agregarForm.reset();
   }
 
   eliminarVacuna(index: number) {
-    this.vacunas.splice(index, 1); // Elimina la vacuna de la lista
+    this.vacunas.splice(index, 1);
   }
 
   editarVacuna(index: number) {
@@ -56,6 +56,6 @@ export class VaccinePage implements OnInit {
     this.name.setValue(vacuna.name);
     this.date.setValue(vacuna.date);
     this.certificado.setValue(vacuna.certificado);
-    this.editIndex = index; // Guarda el índice para actualizar
+    this.editIndex = index;
   }
 }

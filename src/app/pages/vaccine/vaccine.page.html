@@ -28,7 +28,9 @@
       </form>
       <ion-list [inset]="true">
         <ion-item *ngFor="let vacuna of vacunas; let i = index">
-          <ion-label>{{ vacuna.name }} - {{ vacuna.date }} - {{ vacuna.certificado }}</ion-label>
+          <ion-label>
+            {{ vacuna.name }} - {{ vacuna.date }} - {{ vacuna.certificado }}
+          </ion-label>
           <ion-button color="tertiary" (click)="editarVacuna(i)" fill="clear" slot="end">Editar</ion-button>
           <ion-button color="danger" (click)="eliminarVacuna(i)" fill="clear" slot="end">Eliminar</ion-button>
         </ion-item>
