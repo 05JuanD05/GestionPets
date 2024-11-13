@@ -6,56 +6,58 @@
     <ion-card-header>
       <ion-card-title>Register Pet</ion-card-title>
     </ion-card-header>
-      <form [formGroup]="petsForm" (ngSubmit)="onSubmit()">
-        <ion-row>
-          <ion-col>
-            <app-avatar [control]="petsForm.controls['image']"></app-avatar>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-input label="Name:" formControlName="name" type="text" required></ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-select label="Breed:" formControlName="breed" required>
-              <ion-select-option disabled>Dog</ion-select-option>
-              <ion-select-option *ngFor="let breed of filteredBreeds.dogs" [value]="breed.value">
-                {{ breed.label }}
-              </ion-select-option>
-            
-              <ion-select-option disabled>Cat</ion-select-option>
-              <ion-select-option *ngFor="let breed of filteredBreeds.cats" [value]="breed.value">
-                {{ breed.label }}
-              </ion-select-option>
-            </ion-select> 
-          </ion-col>
-        </ion-row>        
-        <ion-row>
-          <ion-col>
-            <ion-input label="Age:" formControlName="age" placeholder="Especificar si es year/month/week" type="text" required></ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-input label="Birthdate:" formControlName="birthdate" type="date" required></ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-button color="danger" type="submit" [disabled]="petsForm.invalid">Register</ion-button>
-          </ion-col>
-        </ion-row>
-      </form>
+    <ion-card-content>
+    <form [formGroup]="petsForm" (ngSubmit)="onSubmit()">
       <ion-row>
         <ion-col>
-          <ion-button routerLink="/vaccine" expand="block">Register Vaccine</ion-button>
+          <app-avatar [control]="petsForm.controls['image']"></app-avatar>
         </ion-col>
       </ion-row>
-    </ion-card>  
+      <ion-row>
+        <ion-col>
+          <ion-input label="Name:" formControlName="name" type="text" required></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-select label="Breed:" formControlName="breed" required>
+            <ion-select-option disabled>Dog</ion-select-option>
+            <ion-select-option *ngFor="let breed of filteredBreeds.dogs" [value]="breed.value">
+              {{ breed.label }}
+            </ion-select-option>
 
-    <ion-card>
+            <ion-select-option disabled>Cat</ion-select-option>
+            <ion-select-option *ngFor="let breed of filteredBreeds.cats" [value]="breed.value">
+              {{ breed.label }}
+            </ion-select-option>
+          </ion-select> 
+        </ion-col>
+      </ion-row>        
+      <ion-row>
+        <ion-col>
+          <ion-input label="Age:" formControlName="age" placeholder="Especificar si es year/month/week" type="text" required></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-input label="Birthdate:" formControlName="birthdate" type="date" required></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button color="danger" type="submit" [disabled]="petsForm.invalid">Register</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <ion-button routerLink="/vaccine" expand="block">Register Vaccine</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card>
     <ion-title size="large">Pets List</ion-title>
     <ion-list>
       <ion-item *ngFor="let pet of petList" class="pet-item">
@@ -72,5 +74,5 @@
         <ion-button color="danger" (click)="onDeletePet(pet)">Delete</ion-button>  
       </ion-item>
     </ion-list>
-    </ion-card>
+  </ion-card>
 </ion-content>
