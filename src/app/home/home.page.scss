@@ -1,22 +1,49 @@
-ion-content {
-  --background: url('https://img.freepik.com/vector-premium/perro-gato-diseno-logotipo-cuidado-mascotas-concepto-elemento-simbolo-vector-ilustracion_690981-739.jpg') no-repeat center center fixed;
+/* Estilo de la tarjeta principal con fondo de imagen y capa semitransparente */
+ion-card {
+  position: relative;
+  overflow: hidden;
+  width: 90%; 
+  max-width: 500px; 
+  margin: 20px auto;
+  padding: 20px;
+  border: 3px solid #10ac84;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-image: url('https://img.freepik.com/vector-premium/perro-gato-diseno-logotipo-cuidado-mascotas-concepto-elemento-simbolo-vector-ilustracion_690981-739.jpg');
   background-size: cover;
+  background-position: center;
+}
+
+/* Fondo general con gradiente y centrado */
+ion-content {
+  --background: none; /* Quitar la imagen de fondo directa */
+  background: linear-gradient(to bottom, #576b83, #8c97a1);
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
-ion-card {
-  border: 3px solid #10ac84;
-  border-radius: 15px;
-  padding: 20px;
-  background-color: rgba(201, 201, 201, 0.8);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 90%; 
-  max-width: 500px; 
-  margin: 20px auto; 
+/* Capa semitransparente para desenfoque */
+ion-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.514);
+  backdrop-filter: blur(1px) opacity(0.2);
+  z-index: 1;
 }
 
+/* Mantener el contenido de la tarjeta visible encima de la capa */
+ion-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ajustes de título */
 ion-card-header ion-card-title {
   text-align: center;
   font-weight: bold;
@@ -25,12 +52,12 @@ ion-card-header ion-card-title {
   margin-bottom: 10px;
 }
 
+/* Resto de estilos adicionales */
 ion-item {
   --background: #3163cf; 
   border-radius: 5px;
   margin-bottom: 10px;
 }
-
 
 ion-title {
   text-align: center;
@@ -40,22 +67,16 @@ ion-title {
   margin-bottom: 10px;
 }
 
-
 ion-input {
   --color: #000000;
   border-radius: 8px;
   padding: 10px;
 }
 
-
 ion-select {
-  --color: #000000; 
-  --placeholder-color: #555555; 
-  color: #000000; 
-}
-
-ion-select-option {
-  --ion-color-base: #000000; 
+  --color: #000000;
+  --placeholder-color: #555555;
+  color: #000000;
 }
 
 ion-button {
@@ -66,25 +87,21 @@ ion-button {
   text-transform: uppercase;
 }
 
-
 .pet-item ion-label h2,
 .pet-item ion-label p {
   color: rgb(255, 255, 255); 
 }
 
-/* Media query para pantallas más grandes (escritorio) */
+/* Media query para pantallas más grandes */
 @media (min-width: 768px) {
   ion-card {
-    width: 60%; /* Ajuste de ancho para pantallas medianas y grandes */
-    max-width: 600px; /* Ancho máximo para una mejor visualización en escritorio */
+    width: 60%;
+    max-width: 600px;
   }
-
   ion-card-header ion-card-title {
-    font-size: 26px; /* Tamaño de fuente mayor para pantallas grandes */
+    font-size: 26px;
   }
-
   ion-input {
     padding: 15px;
   }
-  
 }
