@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/shared/services/authService/auth.service';
 import { LoadingService } from 'src/app/shared/services/loadingService/loading.service';
 import { RegisterServiceService } from 'src/app/shared/services/registerS/register-service.service';
