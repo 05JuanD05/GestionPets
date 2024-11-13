@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PetSService } from '../shared/services/petService/pet-s.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { SupabaseService } from 'src/app/shared/services/storageS/supabase.service';
 
 @Component({
   selector: 'app-home',
@@ -14,17 +15,21 @@ export class HomePage implements OnInit {
   filteredBreeds: { dogs: { label: string, value: string }[], cats: { label: string, value: string }[] } = { dogs: [], cats: [] };
   petList: any[] = [];
   editId: string | null = null;
+  selectedImage: File | null = null;
 
 
   constructor(
-  private formBuilder: FormBuilder, private petService: PetSService, private afAuth: AngularFireAuth){
+  private formBuilder: FormBuilder, private petService: PetSService, private afAuth: AngularFireAuth, 
+  private supabaseS: SupabaseService)
+  {
 
-  this.petsForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    breed: ['', Validators.required],
-    age: ['', Validators.required],
-    birthdate: ['', Validators.required],
-  });
+    this.petsForm = this.formBuilder.group({
+      image: [''], 
+      name: ['', Validators.required],
+      breed: ['', Validators.required],
+      age: ['', Validators.required],
+      birthdate: ['', Validators.required],
+    });
   }
 
 
@@ -50,41 +55,69 @@ export class HomePage implements OnInit {
     }
   }
 
-  onSubmit() {
-    if (this.petsForm.valid && this.userId) { // Verifica que userId esté disponible
+  async onSubmit() {
+    if (this.petsForm.valid && this.userId) {
       const petData = { ...this.petsForm.value, userId: this.userId };
+      
+      try {
+        // Manejar la imagen
+        if (this.selectedImage) {
+          const uploadResult = await this.supabaseS.uploadFoto(this.selectedImage);
+          if (uploadResult) {
+            const imageUrl = await this.supabaseS.getFotoUrl(uploadResult.path);
+            petData.image = imageUrl;
+          }
+        }
 
-      if (this.editId !== null) {
-        this.petService.updatePet(this.editId, petData).subscribe(() => {
-          this.loadPets(); // Recargar la lista
-          this.editId = null; // Salir del modo de edición
-        });
-      } else {
-        this.petService.addPet(petData).subscribe(() => {
-          this.loadPets();
-        });
+        // Guardar en Firebase
+        if (this.editId !== null) {
+          await this.petService.updatePet(this.editId, petData).toPromise();
+          this.editId = null;
+        } else {
+          await this.petService.addPet(petData).toPromise();
+        }
+
+        // Limpiar el formulario y la imagen seleccionada
+        this.petsForm.reset();
+        this.selectedImage = null;
+        
+        // Limpiar el avatar si existe
+        const imageAvatar = document.querySelector('app-avatar');
+        if (imageAvatar) {
+          (imageAvatar as any).image = "https://ionicframework.com/docs/img/demos/avatar.svg";
+        }
+        
+        this.loadPets();
+
+      } catch (error) {
+        console.error('Error al guardar la mascota:', error);
       }
-      this.petsForm.reset();
     }
   }
 
-  onEditPet(petId: string) {
-    const pet = this.petList.find((p) => p.id === petId);
-    if (pet) {
+  // Método auxiliar para crear FormControl para las imágenes en la lista
+  getImageControl(imageUrl: string): FormControl {
+    return new FormControl(imageUrl);
+  }
+
+  onEditPet(pet: any) {
+    const selectedPet = this.petList.find(p => p.id === pet.id);
+    if (selectedPet) {
       this.petsForm.setValue({
-        name: pet.name,
-        breed: pet.breed,
-        age: pet.age,
-        birthdate: pet.birthdate,
+        image: selectedPet.image,
+        name: selectedPet.name,
+        breed: selectedPet.breed,
+        age: selectedPet.age,
+        birthdate: selectedPet.birthdate
       });
-      this.editId = petId;
+      this.editId = selectedPet.id;  // Aseguramos que editId sea el ID correcto de Firebase
     }
   }
-
-  onDeletePet(petId: string) {
-    this.petService.deletePet(petId).subscribe(() => {
-      this.loadPets();
+  
+  onDeletePet(pet: any) {
+    this.petService.deletePet(pet.id).subscribe(() => {
+      this.loadPets(); // Recargar la lista después de eliminar
     });
-  }
+  }  
 
 }
