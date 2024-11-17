@@ -54,7 +54,7 @@ export class RegisterPage implements OnInit {
       }
 
       await this.registerUsuarios(userId, email, imageUrl);
-      this.toastMsj.mostrarToast('El usuario se registró con exito')
+      this.toastMsj.mostrarToast('El usuario se registró con exito');
       await this.loadingSv.dismiss();
       this.navControl.navigateForward("/login");
     }catch (error) {
