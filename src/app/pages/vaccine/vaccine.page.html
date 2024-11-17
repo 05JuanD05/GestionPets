@@ -10,15 +10,8 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <app-input [control]="date" label="Dia Aplicado" type="date"></app-input>
+            <app-input [control]="date" label="Día Aplicado" type="date"></app-input>
           </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <app-input [control]="certificado" label="Certificado de Vacunacion"></app-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
           <ion-col>
             <ion-button (click)="agregarVacuna()" expand="block">
               {{ editIndex !== null ? 'Actualizar Vacuna' : 'Agregar Vacuna' }}
@@ -26,13 +19,14 @@
           </ion-col>
         </ion-row>
       </form>
+
       <ion-list [inset]="true">
         <ion-item *ngFor="let vacuna of vacunas; let i = index">
           <ion-label>
-            {{ vacuna.name }} - {{ vacuna.date }} - {{ vacuna.certificado }}
+            {{ vacuna.name }} - {{ vacuna.date | date: 'dd/MM/yyyy' }} - {{ vacuna.certificado }}
           </ion-label>
-          <ion-button color="tertiary" (click)="editarVacuna(i)" fill="clear" slot="end">Editar</ion-button>
-          <ion-button color="danger" (click)="eliminarVacuna(i)" fill="clear" slot="end">Eliminar</ion-button>
+          <ion-button color="tertiary" (click)="editarVacuna(vacuna)" fill="clear" slot="end">Editar</ion-button>
+          <ion-button color="danger" (click)="eliminarVacuna(vacuna.id)" fill="clear" slot="end">Eliminar</ion-button>
         </ion-item>
       </ion-list>
     </ion-card-content>
