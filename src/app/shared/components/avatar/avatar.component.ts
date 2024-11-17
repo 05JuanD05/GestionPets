@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { LoadingService } from '../../services/loadingService/loading.service';
 import { SupabaseService } from '../../services/storageS/supabase.service';
 
@@ -9,7 +9,7 @@ import { SupabaseService } from '../../services/storageS/supabase.service';
   styleUrls: ['./avatar.component.scss'],
 })
 export class AvatarComponent implements OnInit{
-  @Input() control = new FormControl("");
+  @Input() control!: AbstractControl;
   @Input() onlyView = false;
 
   protected image = "https://ionicframework.com/docs/img/demos/avatar.svg";
