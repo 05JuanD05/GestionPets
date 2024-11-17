@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PetSService } from '../shared/services/petService/pet-s.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { SupabaseService } from 'src/app/shared/services/storageS/supabase.service';
+import { ToastService } from '../shared/services/toastS/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +33,8 @@ export class HomePage implements OnInit {
   constructor(
     private petService: PetSService, 
     private afAuth: AngularFireAuth, 
-    private supabaseS: SupabaseService
+    private supabaseS: SupabaseService,
+    private readonly toastMsj: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -55,10 +57,12 @@ export class HomePage implements OnInit {
       });
     }
   }
-
+  
   async onSubmit() {
     if (this.petsForm.valid && this.userId) {
       const petData = { ...this.petsForm.value, userId: this.userId };
+      
+      this.toastMsj.mostrarToast('Mascota registrada exitosamente');
       
       try {
         if (this.selectedImage) {
@@ -74,6 +78,7 @@ export class HomePage implements OnInit {
           this.editId = null;
         } else {
           await this.petService.addPet(petData).toPromise();
+
         }
 
         this.petsForm.reset();
@@ -83,6 +88,8 @@ export class HomePage implements OnInit {
       } catch (error) {
         console.error('Error saving pet:', error);
       }
+    }else {
+      this.toastMsj.mostrarToast('Error al registrar la mascota');
     }
   }
 
@@ -100,13 +107,17 @@ export class HomePage implements OnInit {
         age: selectedPet.age,
         birthdate: selectedPet.birthdate
       });
+      this.toastMsj.mostrarToast('Mascota seleccionada para editar');
       this.editId = selectedPet.id;
+    } else{
+      
     }
   }
   
   onDeletePet(pet: any) {
     this.petService.deletePet(pet.id).subscribe(() => {
       this.loadPets();
+      this.toastMsj.mostrarToast('Mascota eliminada con exito');
     });
   }  
 }
