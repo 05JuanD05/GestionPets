@@ -62,7 +62,7 @@ export class HomePage implements OnInit {
     if (this.petsForm.valid && this.userId) {
       const petData = { ...this.petsForm.value, userId: this.userId };
       
-      this.toastMsj.mostrarToast('Mascota registrada exitosamente');
+      this.toastMsj.show('Mascota registrada exitosamente');
       
       try {
         if (this.selectedImage) {
@@ -89,7 +89,7 @@ export class HomePage implements OnInit {
         console.error('Error saving pet:', error);
       }
     }else {
-      this.toastMsj.mostrarToast('Error al registrar la mascota');
+      this.toastMsj.show('Error al registrar la mascota');
     }
   }
 
@@ -107,7 +107,7 @@ export class HomePage implements OnInit {
         age: selectedPet.age,
         birthdate: selectedPet.birthdate
       });
-      this.toastMsj.mostrarToast('Mascota seleccionada para editar');
+      this.toastMsj.show('Mascota seleccionada para editar');
       this.editId = selectedPet.id;
     } else{
       
@@ -117,7 +117,7 @@ export class HomePage implements OnInit {
   onDeletePet(pet: any) {
     this.petService.deletePet(pet.id).subscribe(() => {
       this.loadPets();
-      this.toastMsj.mostrarToast('Mascota eliminada con exito');
+      this.toastMsj.show('Mascota eliminada con exito');
     });
   }  
 }

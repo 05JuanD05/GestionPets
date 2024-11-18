@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
-import { ToastController } from '@ionic/angular';
-
+import { Injectable } from '@angular/core'; 
+import { Toast } from '@capacitor/toast'
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
+  
+  constructor (){}
 
-  constructor(private toastController: ToastController) {}
-
-  async mostrarToast(mensaje: string) {
-    const toast = await this.toastController.create({
-      message: mensaje,
-      duration: 2000,  // Duración en milisegundos (2 segundos)
-      position: 'bottom',  // Posición del toast: top, middle o bottom
-      color: 'primary'  // Color del toast, puede ser primary, secondary, success, etc.
-    });
-    await toast.present();
+  async show(message: string, duration: 'short' | 'long' = 'short', position: 'top' | 'center' | 'bottom' = 'bottom'){
+    try {
+      await Toast.show({
+       text: message, 
+       duration, 
+       position,
+      })
+    } catch (error) {
+      console.error('Error al mostrar el toast' , error); 
+    }
   }
 }

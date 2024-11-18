@@ -32,11 +32,11 @@ public loginform!: FormGroup;
       await this.authSrv.login(email,password);
       this.navCtrl.navigateForward("home");
        await this.loadingSrv.dismiss();
-       this.toastMsj.mostrarToast('Welcome');
+       this.toastMsj.show('Welcome');
     }catch (error) {
       console.error(error);
        await this.loadingSrv.dismiss();
-       this.toastMsj.mostrarToast('Error, correo o contraseña incorrectas');
+       this.toastMsj.show('Error, correo o contraseña incorrectas');
     }
   }
 

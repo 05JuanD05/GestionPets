@@ -54,7 +54,7 @@ export class RegisterPage implements OnInit {
       }
 
       await this.registerUsuarios(userId, email, imageUrl);
-      this.toastMsj.mostrarToast('El usuario se registró con exito');
+      this.toastMsj.show('El usuario se registró con exito');
       await this.loadingSv.dismiss();
       this.navControl.navigateForward("/login");
     }catch (error) {
@@ -62,9 +62,9 @@ export class RegisterPage implements OnInit {
 
       if(error instanceof Error) {
         if (error.message.includes('Email already in use')) {
-           this.toastMsj.mostrarToast('El correo esta en uso.' , );
+           this.toastMsj.show('El correo esta en uso.' , );
         } else {
-           this.toastMsj.mostrarToast('Error al Registrarse, el correo está en uso ' ,);
+           this.toastMsj.show('Error al Registrarse, el correo está en uso ' ,);
         }
         console.error('Error al registrar: ', error);
       }

@@ -46,10 +46,10 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>To capture images</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>To add images</string>
+	<string>Se necesita acceso a la cámara para capturar fotos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>To store images</string>
+	<string>Se necesita acceso a la galería para seleccionar imágenes.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Se necesita acceso para guardar fotos en la galería.</string>
 </dict>
 </plist>
