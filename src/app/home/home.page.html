@@ -11,7 +11,6 @@
       <ion-row>
         <ion-col>
           <app-avatar [control]="petsForm.controls['image']"></app-avatar>
-          <ion-button routerLink="/vaccine" expand="block">Ver o Agregar Vacunas</ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -26,7 +25,7 @@
             <ion-select-option *ngFor="let breed of filteredBreeds.dogs" [value]="breed.value">
               {{ breed.label }}
             </ion-select-option>
-
+            
             <ion-select-option disabled>Cat</ion-select-option>
             <ion-select-option *ngFor="let breed of filteredBreeds.cats" [value]="breed.value">
               {{ breed.label }}
@@ -51,11 +50,11 @@
       </ion-row>
     </form>
   </ion-card-content>
-    <ion-row>
-      <ion-col>
-        <ion-button routerLink="/vaccine" expand="block">Register Vaccine</ion-button>
-      </ion-col>
-    </ion-row>
+  <ion-row>
+    <ion-col>
+        <ion-button routerLink="/vaccine" expand="block">Ver o Agregar Vacunas</ion-button>
+    </ion-col>
+  </ion-row>
   </ion-card>
 
   <ion-card>
