@@ -43,4 +43,15 @@
       </form>
     </ion-card-content>
   </ion-card>
+  <div id="container">
+    <img src="{{imageSrc1}}" alt="height: 200px;">
+    <img src="{{imageSrc2}}" alt="height: 200px;">
+    <img src="{{imageSrc1}}" alt="height: 200px;">
+  </div>
+
+  <ion-button (click)="pickFiles()">Pick File</ion-button>
+  <ion-button (click)="pickImages()">Pick Images</ion-button>
+  <ion-button (click)="pickPDFFiles()">Pick Images</ion-button>
+  <ion-button (click)="pickVideo()">Pick Video</ion-button>
+  <ion-button (click)="openFile()">Open Images</ion-button>
 </ion-content>
