@@ -5,12 +5,12 @@
         <ion-label>Registrar Vacuna</ion-label>
         <ion-row>
           <ion-col>
-            <app-input [control]="name" label="Nombre de la Vacuna" type="text"></app-input>
+            <app-input [control]="name" label="Nombre de la Vacuna:" type="text"></app-input>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <app-input [control]="date" label="Día Aplicado" type="date"></app-input>
+            <app-input [control]="date" label="Día Aplicado:" type="date"></app-input>
           </ion-col>
           <ion-col>
             <ion-button (click)="agregarVacuna()" expand="block">
@@ -21,9 +21,9 @@
       </form>
 
       <ion-list [inset]="true">
-        <ion-item *ngFor="let vacuna of vacunas; let i = index">
+        <ion-item *ngFor="let vacuna of vaccinelist; let i = index">
           <ion-label>
-            {{ vacuna.name }} - {{ vacuna.date | date: 'dd/MM/yyyy' }} - {{ vacuna.certificado }}
+            {{ vacuna.name }}  {{ vacuna.date | date: 'dd/MM/yyyy' }}  {{ vacuna.certificado }}
           </ion-label>
           <ion-button color="tertiary" (click)="editarVacuna(vacuna)" fill="clear" slot="end">Editar</ion-button>
           <ion-button color="danger" (click)="eliminarVacuna(vacuna.id)" fill="clear" slot="end">Eliminar</ion-button>

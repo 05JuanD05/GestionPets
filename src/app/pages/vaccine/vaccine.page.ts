@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormControl, FormGroup } from '@angular/forms';
 import { VaccineService } from 'src/app/shared/services/vaccineS/vaccine.service';
 
@@ -14,8 +15,10 @@ export class VaccinePage implements OnInit {
   public agregarForm!: FormGroup;
   public vacunas: any[] = []; // Lista para almacenar las vacunas
   public editIndex: string | null = null; // ID de la vacuna que se va a editar
+  userId: string | undefined;
+  vaccinelist: any[] = []; 
 
-  constructor(private vaccineService: VaccineService) {}
+  constructor(private vaccineService: VaccineService, private afAuth: AngularFireAuth) {}
 
   ngOnInit() {
     this.name = new FormControl('');
@@ -27,17 +30,30 @@ export class VaccinePage implements OnInit {
       certificado: this.certificado,
     });
 
-    // Cargar vacunas desde Firebase
-    this.vaccineService.obtenerVacunas().subscribe((data) => {
-      this.vacunas = data;
+   
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.userId = user.uid;
+        this.loadvaccine(); 
+      }
     });
+
+  } 
+  loadvaccine() {
+    if (this.userId) {
+      this.vaccineService.getVaccine(this.userId).subscribe((vaccine) => {
+        this.vaccinelist = vaccine;
+      });
+    }
   }
 
   agregarVacuna() {
+  
     const nuevaVacuna = {
       name: this.name.value,
       date: this.date.value,
       certificado: this.certificado.value,
+      userId: this.userId             
     };
 
     if (this.editIndex) {
