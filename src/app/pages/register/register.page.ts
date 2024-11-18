@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/shared/services/authService/auth.service';
 import { LoadingService } from 'src/app/shared/services/loadingService/loading.service';
+import { RegisterServiceService } from 'src/app/shared/services/registerS/register-service.service';
 import { SupabaseService } from 'src/app/shared/services/storageS/supabase.service';
 import { ToastService } from 'src/app/shared/services/toastS/toast.service';
 
@@ -27,7 +28,7 @@ export class RegisterPage implements OnInit {
   public passwordType: 'text' | 'password' = 'password';
 
 
-  constructor(private readonly authSv: AuthService, private readonly loadingSv: LoadingService, private readonly toastMsj: ToastService, private readonly navControl: NavController, private readonly route: ActivatedRoute, private readonly FireStore: AngularFirestore, private readonly supabaseS: SupabaseService) { 
+  constructor(private readonly authSv: AuthService, private readonly loadingSv: LoadingService, private readonly toastMsj: ToastService, private readonly navControl: NavController, private readonly route: ActivatedRoute, private readonly supabaseS: SupabaseService, private readonly registerUser: RegisterServiceService) { 
     this.initForm();
   }
 
@@ -38,7 +39,7 @@ export class RegisterPage implements OnInit {
     try{
       await this.loadingSv.show();
       console.log(this.registerForm.value);
-      const { email, password, image } = this.registerForm.value;
+      const { email, password, image, name, lastName, age, phone } = this.registerForm.value;
       const userCreden: any = await this.authSv.registrarUser(email, password);
       const userId = userCreden.user?.uid;
 
@@ -53,7 +54,7 @@ export class RegisterPage implements OnInit {
         console.warn('Imagen no seleccionada');
       }
 
-      await this.registerUsuarios(userId, email, imageUrl);
+      await this.registerUser.registerUsuarios(userId, email, imageUrl, {name, lastName, age, phone});;
       this.toastMsj.show('El usuario se registró con exito');
       await this.loadingSv.dismiss();
       this.navControl.navigateForward("/login");
@@ -90,20 +91,4 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  private async registerUsuarios(userId: string, email: string, imageFile: string) {
-    try {
-      await this.FireStore.collection('users').doc(userId).set({
-        email,
-        image: imageFile,
-        name: this.registerForm.get('name')?.value,
-        lastName: this.registerForm.get('lastName')?.value,
-        age: this.registerForm.get('age')?.value,
-        phone: this.registerForm.get('phone')?.value,
-      });
-      console.log('Usuario Registrado en Firestore');
-    } catch (error) {
-      console.error('Error al Registrar el usuario', error);
-      throw error;
-    }
-  }
 }
