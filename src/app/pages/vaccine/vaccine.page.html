@@ -8,26 +8,25 @@
     <ion-card-content>
       <form [formGroup]="agregarForm">
 
-        <!-- Nombre de la Vacuna -->
         <ion-row>
           <ion-col>
             <app-input [control]="name" label="Nombre de la Vacuna:" type="text"></app-input>
           </ion-col>
         </ion-row>
 
-        <!-- Fecha de Aplicación -->
         <ion-row>
           <ion-col>
             <app-input [control]="date" label="Día Aplicado:" type="date"></app-input>
           </ion-col>
         </ion-row>
         
-        <!-- Botones para cargar/ver archivo -->
         <ion-row class="button-row">
-          <ion-col>
-            <ion-label>Certificado PDF:</ion-label>
-            <ion-button  (click)="pickPDFiles()">Subir PDF</ion-button>
-          </ion-col>
+          <ion-row>
+            <ion-col>
+              <ion-label>Certificado PDF:</ion-label>
+              <input id="pdfFile" type="file" accept="application/pdf" (change)="onPDFSelected($event)" />
+            </ion-col>
+          </ion-row>
           <ion-col>
             <ion-button size="small" (click)="openFile()" color="secondary">Ver PDF</ion-button>
           </ion-col>
