@@ -1,19 +1,16 @@
 ion-card {
-    background-color: rgba(0, 0, 0, 0.6);  // Fondo semitransparente oscuro para destacar el contenido
-    background-image: url('https://cdn.pixabay.com/photo/2016/03/31/17/37/animal-1293792_960_720.png');
+    background-image: url('https://img.freepik.com/vector-premium/perro-gato-diseno-logotipo-cuidado-mascotas-concepto-elemento-simbolo-vector-ilustracion_690981-739.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     padding: 20px;
     max-width: 400px;
     margin: auto;
-    border: 2px solid #bc5d04d0;
-    color: #ffffff;  // Color blanco por defecto para el texto
-}
+    border: 2px solid #f07b07e6;
+  }
 
-ion-title {
-    color: #ffffff;
+ion-label {
+    color: #000000;
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
@@ -38,9 +35,9 @@ ion-col {
 
 app-input {
     --background: transparent;
-    --placeholder-color: #e0e0e0;  // Placeholder más claro para mejor contraste
+    --placeholder-color: #080808;  // Placeholder más claro para mejor contraste
     --border-color: #f5a623;  // Un color cálido y contrastante para los bordes
-    color: #ffffff;  // Color blanco para el texto
+    color: #000000;  // Color blanco para el texto
     width: 100%;
     text-align: left;
 }
