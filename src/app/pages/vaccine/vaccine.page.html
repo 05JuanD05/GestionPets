@@ -1,29 +1,64 @@
 <ion-content [fullscreen]="true">
+
+  <!-- Sección: Registro de Vacuna -->
   <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Registrar Vacuna</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
       <form [formGroup]="agregarForm">
-        <ion-label>Registrar Vacuna</ion-label>
+
+        <!-- Nombre de la Vacuna -->
         <ion-row>
           <ion-col>
             <app-input [control]="name" label="Nombre de la Vacuna:" type="text"></app-input>
           </ion-col>
         </ion-row>
+
+        <!-- Fecha de Aplicación -->
         <ion-row>
           <ion-col>
             <app-input [control]="date" label="Día Aplicado:" type="date"></app-input>
           </ion-col>
+        </ion-row>
+        
+        <!-- Botones para cargar/ver archivo -->
+        <ion-row class="button-row">
           <ion-col>
-            <ion-button (click)="agregarVacuna()" expand="block">
+            <ion-label>Certificado PDF:</ion-label>
+            <ion-button  (click)="pickPDFiles()">Subir PDF</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button size="small" (click)="openFile()" color="secondary">Ver PDF</ion-button>
+          </ion-col>
+        </ion-row>
+
+        <!-- Botón Agregar/Actualizar -->
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="agregarVacuna()" expand="block" color="success">
               {{ editIndex !== null ? 'Actualizar Vacuna' : 'Agregar Vacuna' }}
             </ion-button>
           </ion-col>
         </ion-row>
-      </form>
 
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Vacunas Registradas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
       <ion-list [inset]="true">
         <ion-item *ngFor="let vacuna of vaccinelist; let i = index">
           <ion-label>
-            {{ vacuna.name }}  {{ vacuna.date | date: 'dd/MM/yyyy' }}  {{ vacuna.certificado }}
+            <strong>{{ vacuna.name }}</strong> 
+            <br/>
+            Fecha: {{ vacuna.date | date: 'dd/MM/yyyy' }} 
+            <br/>
+            Certificado: <a href="{{ vacuna.certificado }}" target="_blank">Ver PDF</a>
           </ion-label>
           <ion-button color="tertiary" (click)="editarVacuna(vacuna)" fill="clear" slot="end">Editar</ion-button>
           <ion-button color="danger" (click)="eliminarVacuna(vacuna.id)" fill="clear" slot="end">Eliminar</ion-button>
@@ -31,15 +66,5 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <div id="container">
-    <img src="{{imageSrc1}}" alt="height: 200px;">
-    <img src="{{imageSrc2}}" alt="height: 200px;">
-    <img src="{{imageSrc1}}" alt="height: 200px;">
-  </div>
 
-  <ion-button (click)="pickFiles()">Pick File</ion-button>
-  <ion-button (click)="pickImages()">Pick Images</ion-button>
-  <ion-button (click)="pickPDFFiles()">Pick Images</ion-button>
-  <ion-button (click)="pickVideo()">Pick Video</ion-button>
-  <ion-button (click)="openFile()">Open Images</ion-button>
 </ion-content>

@@ -51,6 +51,16 @@ app-button {
     font-weight: bold;
 }
 
+.button-row {
+    margin-top: 20px; /* Espaciado entre el formulario y los botones */
+    justify-content: space-between; /* Espaciado entre los botones */
+  }
+  
+  ion-button {
+    width: 100%; /* Opcional: Asegura que los botones se expandan en el contenedor */
+  }
+  
+
 @media (min-width: 768px) {
     ion-card {
       max-width: 600px;

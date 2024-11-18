@@ -46,4 +46,34 @@ export class SupabaseService {
     }
   }
   
+  async uploadPDF(file: File): Promise<any> {
+    const fileName = `${Date.now()}_${file.name}`;
+    const { data, error } = await this.supabase.storage
+    .from('pdfVacunas')
+    .upload(`pdfV/${fileName}`, file, {
+      cacheControl: '3600',
+      upsert: false,
+    });
+
+    if (error) {
+      console.error('Error al subir la foto: ', error.message);
+      return null;
+    } else {
+      console.log('Foto subida con exito: ', data);
+      return data;
+    }
+  }
+
+  async getPdfUrl(filePath: string): Promise<string | null> {
+    const { data } = await this.supabase.storage
+    .from('pdfVacunas')
+    .getPublicUrl(filePath);
+
+    if (!data) {
+      console.error('Error al obtener la URL de la foto: ');
+      return null;
+    } else {
+      return data.publicUrl;
+    }
+  }
 }
